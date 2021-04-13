@@ -21,7 +21,6 @@ const AddTodo = ({ todos, addTodo, filterTodo }) => {
         })
     }
 
-
     //Add Todo Form
     return (
         <div className="add-todo">

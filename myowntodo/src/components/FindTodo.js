@@ -12,7 +12,7 @@ const FindTodo = ({ todos, filterTodo }) => {
         todos.forEach(todo => {
             const todoNode = document.getElementById(todo.id);
 
-            if (todo.content.includes(e.target.value)) 
+            if (todo.content.toLowerCase().includes(e.target.value.toLowerCase())) 
             {
                 filterTodo(selectNode.value, todo);
             } else {

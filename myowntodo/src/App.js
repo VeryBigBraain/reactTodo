@@ -10,6 +10,7 @@ function App() {
       {id: 1, content: 'buy some food', type: 'completed'},
       {id: 2, content: 'eat some chicken...', type: 'uncompleted'}
     ],
+    select: "all"
   });
   //Functions
   const addTodo = todo => {
@@ -31,7 +32,7 @@ function App() {
     setState({...state,todos: todos});
   }
 
-  const deleteTodo = id => {
+  const deleteTodo = id => { 
     const todos = state.todos.filter(todo => {
       return todo.id !== id;
     })
@@ -61,12 +62,13 @@ function App() {
         default:
           todoNode.style.display = 'flex';
         }
+        setState({...state,select: valueOfSelect});
   }
 
   return (
     <div className="App">
       <FindTodo todos={state.todos} filterTodo={filterTodo} />
-      <AddTodo todos={state.todos} addTodo={addTodo} filterTodo={filterTodo} />
+      <AddTodo todos={state.todos, state.select} addTodo={addTodo} filterTodo={filterTodo} />
       <TodoList todos={state.todos} deleteTodo={deleteTodo} completeTodo={completeTodo} />
     </div>
   );

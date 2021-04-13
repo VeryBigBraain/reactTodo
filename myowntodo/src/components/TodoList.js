@@ -7,7 +7,7 @@ const TodoList = ({ todos, deleteTodo, completeTodo }) => {
     }
 
     const handleComplete = id => {
-        completeTodo(id);
+        completeTodo(id); 
     }
     //Todo List
     const todoList = todos.map(todo => {
