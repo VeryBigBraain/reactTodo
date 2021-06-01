@@ -26,17 +26,25 @@ const AddTodo = ({ addTodo, filterTodo }) => {
     //Add Todo Form
     return (
         <div className="add-todo">
-            <h1>Yours Todo's</h1>
-            <form onSubmit={handleSubmit}>
-                <label className="add-label">Add new todo:</label>
-                <input className="add-input" type="text" id="add-todo" name="add-todo" onChange={handleChange} value={state.content} />
-                <button type="submit" className="add-btn"><i className="gg-add-r"></i></button>
-                <select name="todos" className="select-todo" onChange={handleSelect}>
-                    <option value="all">All</option>
-                    <option value="completed">Completed</option>
-                    <option value="uncompleted">Uncompleted</option>
-                </select>
-            </form>
+            <div className="add-todo__header">
+                <h1>Your Todo's</h1>
+            </div>
+            <div className="add-todo__form-container">
+                <form className="add-todo__form" onSubmit={handleSubmit}>
+                <div className="add-todo__form-label">
+                    <label className="add-label">Add new todo:</label>
+                </div>
+                <div className="add-todo__form-content">
+                    <input className="add-input" type="text" id="add-todo" name="add-todo" onChange={handleChange} value={state.content} />
+                    <button type="submit" className="add-btn"><i className="gg-add-r"></i></button>
+                    <select name="todos" className="select-todo" onChange={handleSelect}>
+                        <option value="all">All</option>
+                        <option value="completed">Completed</option>
+                        <option value="uncompleted">Uncompleted</option>
+                    </select>
+                </div>
+                </form>
+            </div>
         </div>
     )
 }
