@@ -1,35 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import Context from './Context';
 
 const FindTodo = ({ todos, filterTodo }) => {
-    const [state, setState] = useState({
+    const { todosState, selectTodo } = useContext(Context);
+
+    const [state, setState] = todosState;
+    const [findState, findSetState] = useState({
         content: ''
     })
     //Functions
     const handleChange = (e) => {
-        setState({content: e.target.value});
+        findSetState({content: e.target.value});
 
         todos.forEach(todo => {
-            const todoNode = document.getElementById(todo.id);
-
             if (todo.content.includes(e.target.value)) 
             {
                 filterTodo();
+                todo.find = '';
             } else {
-                todoNode.style.display = 'none';
+                todo.find = 'not-find';
             }
         });
+        setState({...state, todos});
     }
 
     const handleSubmit = e => {
         e.preventDefault();
-        setState({content: ''});
+        findSetState({content: ''});
     }
 
     return (
         <form className="find-form" onSubmit={handleSubmit}>
             <div className="search-todo">
                 <input placeholder="Find your todo..." type="text"
-                 name="searchTodo" onChange={handleChange} value={state.content} />
+                 name="searchTodo" onChange={handleChange} value={findState.content} />
             </div>
         </form>
     )

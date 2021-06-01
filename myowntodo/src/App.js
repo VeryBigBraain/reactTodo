@@ -9,8 +9,8 @@ function App() {
   //State
   const [state, setState] = useState({
     todos: [
-      {id: 1, content: 'buy some food', type: 'completed', display: ''},
-      {id: 2, content: 'eat some chicken...', type: 'uncompleted', display: ''},
+      {id: 1, content: 'buy some food', type: 'completed', display: '', find: ''},
+      {id: 2, content: 'eat some chicken...', type: 'uncompleted', display: '', find: ''},
     ],
   });
   const [selectState, setSelectState] = useState({
@@ -35,7 +35,7 @@ function App() {
   // Filter todos
   useEffect(() => {
     filterTodo();
-  },[selectState]);
+  }, [selectState]);
 
   const completeTodo = id => {
     const todos = state.todos.map(todo => {
@@ -53,30 +53,32 @@ function App() {
   }
   
   const filterTodo = () => {
-    state.todos.forEach(todo => {
-      const todoNode = document.getElementById(todo.id);
-      
+    const todos = state.todos;
+
+    todos.forEach(todo => {
       switch (selectState.type) {
 
         case 'completed':
           if (todo.type === 'completed') {
-            todoNode.style.display = 'flex';
+            todo.display = '';
           } else {
-            todoNode.style.display = 'none';
+            todo.display = 'hide';
           } 
           break;
 
         case 'uncompleted':
           if (todo.type !== 'completed') {
-            todoNode.style.display = 'flex';
+            todo.display = '';
           } else {
-            todoNode.style.display = 'none';
+            todo.display = 'hide';
           } 
           break;
         default:
-          todoNode.style.display = 'flex';
+          todo.display = '';
         }
-    })
+    });
+
+    setState({...state, todos});
   }
 
   return (

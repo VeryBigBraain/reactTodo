@@ -12,8 +12,8 @@ const TodoList = ({ todos, deleteTodo, completeTodo }) => {
     //Todo List
     const todoList = todos.map(todo => {
         return (
-            <div className="todo" key={todo.id} id={todo.id}>
-                <div className={`content ${todo.display}`} id={`${todo.type}`}>{todo.content}</div>
+            <div className={`todo ${todo.display} ${todo.find}`} key={todo.id} id={todo.id}>
+                <div className={"content"} id={`${todo.type}`}>{todo.content}</div>
                 <div className="buttons">
                     <button onClick={() => {handleComplete(todo.id)} } className="complete-btn">
                         <i className="gg-check-o"></i>
