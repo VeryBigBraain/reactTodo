@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import Context from "./Context";
 
-const AddTodo = ({ addTodo }) => {
+const AddTodo = ({ addTodo, filterTodo }) => {
     const { todosState, selectTodo } = useContext(Context);
     const [selectState, setSelectState] = selectTodo;
 

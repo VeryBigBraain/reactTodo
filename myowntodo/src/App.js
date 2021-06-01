@@ -26,8 +26,8 @@ function App() {
     if (todo.content !== '') {
       todo.id = Math.random() * 10;
       todo.type = 'uncompleted';
-      const todos = ([...state.todos, todo]);
-      setState({...state, todos});
+      let todos = ([...state.todos, todo]);
+      filterTodo(todos); 
     } else {
       return null;
     }
@@ -52,9 +52,7 @@ function App() {
     setState({...state,todos: todos});
   }
   
-  const filterTodo = () => {
-    const todos = state.todos;
-
+  const filterTodo = (todos = state.todos) => {
     todos.forEach(todo => {
       switch (selectState.type) {
 
@@ -85,7 +83,7 @@ function App() {
     <div className="App">
       <Context.Provider value={value}>
         <FindTodo todos={state.todos} filterTodo={filterTodo} />
-        <AddTodo todos={state.todos} addTodo={addTodo} />
+        <AddTodo todos={state.todos} addTodo={addTodo} filterTodo={filterTodo}/>
         <TodoList todos={state.todos} deleteTodo={deleteTodo} completeTodo={completeTodo} />
       </Context.Provider>
     </div>

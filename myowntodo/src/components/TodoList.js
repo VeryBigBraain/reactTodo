@@ -12,7 +12,7 @@ const TodoList = ({ todos, deleteTodo, completeTodo }) => {
     //Todo List
     const todoList = todos.map(todo => {
         return (
-            <div className={`todo ${todo.display} ${todo.find}`} key={todo.id} id={todo.id}>
+            <div className={`todo ${todo.find} ${todo.display}`} key={todo.id} id={todo.id}>
                 <div className={"content"} id={`${todo.type}`}>{todo.content}</div>
                 <div className="buttons">
                     <button onClick={() => {handleComplete(todo.id)} } className="complete-btn">
