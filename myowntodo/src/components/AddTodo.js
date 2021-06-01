@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import Context from "./Context";
 
-const AddTodo = ({ todos, addTodo, filterTodo }) => {
+const AddTodo = ({ addTodo }) => {
+    const { todosState, selectTodo } = useContext(Context);
+    const [selectState, setSelectState] = selectTodo;
+
     const [state, setState] = useState({
         content: ''
     })
@@ -16,11 +20,8 @@ const AddTodo = ({ todos, addTodo, filterTodo }) => {
     }
 
     const handleSelect = e => {
-        todos.forEach(todo => {
-            filterTodo(e.target.value, todo);
-        })
+        setSelectState({type: e.target.value});
     }
-
 
     //Add Todo Form
     return (

@@ -1,28 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TodoList from './components/TodoList';
 import AddTodo from './components/AddTodo';
 import FindTodo from './components/FindTodo';
+import Context from "./components/Context";
 
 function App() {
-  /// add new branch
+  /// Create context
   //State
   const [state, setState] = useState({
     todos: [
-      {id: 1, content: 'buy some food', type: 'completed'},
-      {id: 2, content: 'eat some chicken...', type: 'uncompleted'}
+      {id: 1, content: 'buy some food', type: 'completed', display: ''},
+      {id: 2, content: 'eat some chicken...', type: 'uncompleted', display: ''},
     ],
   });
+  const [selectState, setSelectState] = useState({
+    type: "all"
+  })
+  // Context value
+  const value = {
+    todosState: [state, setState],
+    selectTodo: [selectState, setSelectState],
+  };
   //Functions
   const addTodo = todo => {
     if (todo.content !== '') {
       todo.id = Math.random() * 10;
       todo.type = 'uncompleted';
       const todos = ([...state.todos, todo]);
-      setState({...state,todos: todos});
+      setState({...state, todos});
     } else {
       return null;
     }
   }
+  // Filter todos
+  useEffect(() => {
+    filterTodo();
+  },[selectState]);
 
   const completeTodo = id => {
     const todos = state.todos.map(todo => {
@@ -39,10 +52,11 @@ function App() {
     setState({...state,todos: todos});
   }
   
-  const filterTodo = (valueOfSelect, todo) => {
+  const filterTodo = () => {
+    state.todos.forEach(todo => {
       const todoNode = document.getElementById(todo.id);
-
-      switch (valueOfSelect) {
+      
+      switch (selectState.type) {
 
         case 'completed':
           if (todo.type === 'completed') {
@@ -62,13 +76,16 @@ function App() {
         default:
           todoNode.style.display = 'flex';
         }
+    })
   }
 
   return (
     <div className="App">
-      <FindTodo todos={state.todos} filterTodo={filterTodo} />
-      <AddTodo todos={state.todos} addTodo={addTodo} filterTodo={filterTodo} />
-      <TodoList todos={state.todos} deleteTodo={deleteTodo} completeTodo={completeTodo} />
+      <Context.Provider value={value}>
+        <FindTodo todos={state.todos} filterTodo={filterTodo} />
+        <AddTodo todos={state.todos} addTodo={addTodo} />
+        <TodoList todos={state.todos} deleteTodo={deleteTodo} completeTodo={completeTodo} />
+      </Context.Provider>
     </div>
   );
 }

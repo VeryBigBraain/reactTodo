@@ -6,7 +6,6 @@ const FindTodo = ({ todos, filterTodo }) => {
     })
     //Functions
     const handleChange = (e) => {
-        const selectNode = document.querySelector('.select-todo');
         setState({content: e.target.value});
 
         todos.forEach(todo => {
@@ -14,7 +13,7 @@ const FindTodo = ({ todos, filterTodo }) => {
 
             if (todo.content.includes(e.target.value)) 
             {
-                filterTodo(selectNode.value, todo);
+                filterTodo();
             } else {
                 todoNode.style.display = 'none';
             }
